@@ -1,11 +1,14 @@
-
-import Table from "./Routes/Table/Table";
-import Form from "./Routes/Form/Form";
+import ProductList from "./Routes/Table/ProductList";
+import NewProduct from "./Routes/Form/NewProduct";
+import EditProduct from "./Routes/EditProduct/EditProduct";
 import {Routes, Route} from "react-router-dom";
+
+
 const App = () => (
       <Routes>
-          <Route index path={'/'} element={<Table/>}/>
-          <Route path={'/form'} element={<Form/>}/>
+          <Route index path={'/'} element={<ProductList/>}/>
+          <Route path={'/newProduct'} element={<NewProduct/>}/>
+          <Route path={'/editProduct/:id'} element={<EditProduct/>}/>
       </Routes>
 )
 

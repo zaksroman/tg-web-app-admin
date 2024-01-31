@@ -1,45 +1,29 @@
 import { createStore, applyMiddleware }  from 'redux';
 import thunk from 'redux-thunk';
+import products from "./Products";
 
 const initialState = {
-    data: [],
-    sortBy: null,
-    sortOrder: 'asc'
+    products
 }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
-        case 'SET_DATA':
+        // case 'SET_PRODUCTS':
+        //     return {
+        //         ...state,
+        //         products: [...action.payload]
+        //     };
+
+        case 'ADD_PRODUCT':
             return {
                 ...state,
-                data: [...action.payload],
-                sortBy: null,
-                sortOrder: 'asc'
+                products: [action.payload, ...state.products]
             };
-        case 'ADD_ROW':
+
+        case 'DELETE_PRODUCT':
             return {
                 ...state,
-                data: [...state.data, action.payload]
-            };
-        case 'SET_SORT_BY':
-            return {
-                ...state,
-                sortBy: action.payload
-            };
-        case 'SET_SORT_ORDER':
-            return {
-                ...state,
-                sortOrder: action.payload
-            };
-        case 'CLEAR_DATA':
-            return {
-                ...state,
-                data: state.data = []
-            };
-        case 'DELETE_ROW':
-            return {
-                ...state,
-                data: state.data.filter(item => item.name !== action.payload)
+                products: state.products.filter(item => item.title !== action.payload)
             };
 
         default:

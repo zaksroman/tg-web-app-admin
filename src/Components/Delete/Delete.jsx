@@ -12,7 +12,7 @@ const Delete = ({item}) => {
     }
 
     const deleteHandler = () => {
-        dispatch({type: 'DELETE_ROW', payload: item.name})
+        dispatch({type: 'DELETE_PRODUCT', payload: item.name})
         setShowModal(false)
     }
 
