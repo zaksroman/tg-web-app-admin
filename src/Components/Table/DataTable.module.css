@@ -1,0 +1,30 @@
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dataTable thead {
+    background-color: #f2f2f2;
+}
+
+.dataTable th,
+.dataTable td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.dataTable th {
+    cursor: pointer;
+}
+
+.dataTable th:hover {
+    background-color: #ddd;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+}

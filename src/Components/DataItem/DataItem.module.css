@@ -1,0 +1,7 @@
+.dataItem {
+    color: #333;
+}
+
+.dataItem:hover {
+    background-color: #f2f2f2;
+}
