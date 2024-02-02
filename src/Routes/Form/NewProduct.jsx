@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import styles from './NewProduct.module.css'
 import clsx from 'clsx'
+import {postDataApi} from "../../Variables";
 
 const NewProduct = () => {
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
     const [title, setTitle] = useState('')
     const [price, setPrice] = useState('')
@@ -31,21 +30,39 @@ const NewProduct = () => {
         setImg(e.target.value)
     }
 
+    const addProductToDB = async (newProduct) => {
+        try {
+            const response = await fetch(postDataApi, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newProduct)
+            });
+            if (response.ok) {
+                alert('Товар успешно добавлен');
+                navigate(-1)
+            } else {
+                throw new Error('Ошибка при добавлении товара');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка');
+        }
+    }
 
-    const addProduct = () => {
+    const addProduct = async () => {
         const newProduct = {
+            _id: Math.random().toString(),
             title: title,
             price: price,
             description: description,
             img: img
         }
-
-        dispatch({type: 'ADD_PRODUCT', payload: newProduct})
-        navigate(-1)
-        alert('Товар успешно добавлена')
+        await addProductToDB(newProduct)
     }
 
-    const actionButton = title && price && description && img
+    const actionButton = title && price && description
 
     return (
         <div /*className={styles.formContainer}*/>
@@ -56,14 +73,12 @@ const NewProduct = () => {
                 onChange={titleHandler}/>
             <input
                 className={styles.formInput}
-                type="number"
-                step="1"
+                type="text"
                 placeholder={'Цена'}
                 onChange={priceHandler}/>
             <input
                 className={styles.formInput}
-                type="number"
-                step="1"
+                type="text"
                 placeholder={'Описание'}
                 onChange={descriptionHandler}/>
             <input

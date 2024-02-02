@@ -8,7 +8,7 @@ const App = () => (
       <Routes>
           <Route index path={'/'} element={<ProductList/>}/>
           <Route path={'/newProduct'} element={<NewProduct/>}/>
-          <Route path={'/editProduct/:id'} element={<EditProduct/>}/>
+          <Route path={'/editProduct/:_id'} element={<EditProduct/>}/>
       </Routes>
 )
 

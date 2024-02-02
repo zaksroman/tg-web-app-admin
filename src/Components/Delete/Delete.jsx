@@ -1,18 +1,29 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
 import styles from './Delete.module.css'
+import {deleteDataApi} from "../../Variables";
 
 const Delete = ({item}) => {
 
     const [showModal, setShowModal] = useState(false)
-    const dispatch = useDispatch()
 
     const modalHandler = () => {
         setShowModal(true)
     }
 
     const deleteHandler = () => {
-        dispatch({type: 'DELETE_PRODUCT', payload: item.name})
+        async function deleteProduct(productId) {
+            try {
+                const response = await fetch(deleteDataApi + productId, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                console.log(data.message);
+                window.location.reload()
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+        deleteProduct(item._id)
         setShowModal(false)
     }
 

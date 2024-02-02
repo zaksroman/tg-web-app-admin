@@ -4,10 +4,10 @@ import styles from './ProductsData.module.css'
 
 const ProductsData = () => {
 
-    const products = useSelector(state => state)
+    const products = useSelector(state => state.products)
 
     return (
-        <div /*className={styles.dataTable}*/>
+        <div className={styles.dataTable}>
             <div>
             {products.map(item => (
                 <DataItem
