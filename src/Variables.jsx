@@ -1,6 +1,7 @@
-export const getDataApi = 'http://localhost:8000/api/getProducts'
-export const postDataApi = 'http://localhost:8000/api/postProduct'
-export const editDataApi ='http://localhost:8000/api/editProduct/'
-export const deleteDataApi = 'http://localhost:8000/api/delProduct/'
+export const getDataApi = 'https://tg-bot-test.ru/api/getProducts'
+export const postDataApi = 'https://tg-bot-test.ru/api/postProduct'
+export const editDataApi ='https://tg-bot-test.ru/api/editProduct/'
+export const deleteDataApi = 'https://tg-bot-test.ru/api/delProduct/'
+export const imgDataApi = 'https://tg-bot-test.ru/uploads/'
 
 

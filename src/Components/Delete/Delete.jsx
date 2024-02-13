@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './Delete.module.css'
 import {deleteDataApi} from "../../Variables";
 
-const Delete = ({item}) => {
+const Delete = ({product}) => {
 
     const [showModal, setShowModal] = useState(false)
 
@@ -23,7 +23,7 @@ const Delete = ({item}) => {
                 console.error('Ошибка:', error);
             }
         }
-        deleteProduct(item._id)
+        deleteProduct(product._id)
         setShowModal(false)
     }
 

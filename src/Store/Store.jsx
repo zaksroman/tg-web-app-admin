@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware }  from 'redux';
 import thunk from 'redux-thunk';
-// import products from "./Products";
 
 const initialState = {
     products: []
@@ -13,11 +12,6 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: [...action.payload],
             };
-        // case 'ADD_PRODUCT':
-        //     return {
-        //         ...state,
-        //         products: [action.payload, ...state.products]
-        //     };
         case 'DELETE_PRODUCT':
             return {
                 ...state,

@@ -31,16 +31,20 @@ const ProductList = () => {
 
     return (
         <div className={styles.tableContainer}>
-            <div>
+            <div className={styles.buttonContainer}>
                 <button onClick={handleClickNewProduct} className={styles.button}>Добавить товар</button>
             </div>
-            {isLoading ?
-                <p>Загрузка...</p>
-                :
-                <div>
-                    <ProductsData/>
-                </div>
-            }
+
+            <div className={styles.productContainer}>
+                {isLoading ?
+                    <p>Загрузка...</p>
+                    :
+                    <div>
+                        <ProductsData/>
+                    </div>
+                }
+            </div>
+
             {products.length === 0 && isLoading===false &&  <p>Нет данных</p>}
         </div>
     );

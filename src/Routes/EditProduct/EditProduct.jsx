@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './EditProduct.module.css'
 import {useSelector} from "react-redux"
 import {useNavigate, useParams} from "react-router-dom";
-import {editDataApi} from "../../Variables";
+import {editDataApi, imgDataApi} from "../../Variables";
 
 const EditProduct = () => {
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const EditProduct = () => {
     const [title, setTitle] = useState(prodCharacteristics(_id).title)
     const [price, setPrice] = useState(prodCharacteristics(_id).price)
     const [description, setDescription] = useState(prodCharacteristics(_id).description)
-    const [img, setImg] = useState(prodCharacteristics(_id).img)
+    const [images, setImages] = useState(prodCharacteristics(_id).images)
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
@@ -31,46 +31,58 @@ const EditProduct = () => {
     }
 
     const imgHandler = (e) => {
-        setImg(e.target.value)
+        const files = e.target.files;
+        setImages([...images, ...files])
+    }
+
+    const deleteImage = (index) => {
+        const newImages = images.filter((img, i) => i !== index)
+        setImages(newImages)
     }
 
     const editProduct = async () => {
-        const updatedData = {
-            _id: _id,
-            title: title,
-            price: price,
-            description: description,
-            img: img
-        };
-        await fetch(`${editDataApi}${_id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-        })
-            .then(response => response.json())
-            .then(() => {
-                alert('Товар успешно изменен');
-                navigate(-1)
-            })
-            .catch(error => {
-                console.error('Ошибка при обновлении товара:', error);
+        try {
+            const editData = new FormData();
+            editData.set('title', title);
+            editData.set('price', price);
+            editData.set('description', description);
+
+            for (let i = 0; i < images.length; i++) {
+                editData.append(`images`, images[i]);
+            }
+
+            const response = await fetch(editDataApi, {
+                method: 'PUT',
+                body: editData
             });
-    };
+
+            if (response.ok) {
+                alert('Товар успешно обновлен');
+                navigate(-1)
+            } else {
+                throw new Error('Ошибка при обновлении товара');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка');
+        }
+    }
 
     return (
         <div>
+            <p>Название</p>
             <input
                 type="text"
                 value={title}
                 onChange={titleHandler}
             />
+            <p>Цена</p>
             <input
                 type="text"
                 value={price}
                 onChange={priceHandler}
             />
+            <p>Описание</p>
             <input
                 type="text"
                 value={description}
@@ -78,10 +90,17 @@ const EditProduct = () => {
             />
             <input
                 type="file"
-                value={img}
                 onChange={imgHandler}
+                multiple
             />
-            <button onClick={editProduct}>Сохранить изменения</button>
+            {images.map((image, index) => (
+                <div key={index}>
+                    <img src={imgDataApi + images[index]} className={styles.img} alt={'test'}/>
+                    <button onClick={() => deleteImage(index)}>Удалить</button>
+                </div>
+            ))}
+
+            {/*<button onClick={editProduct}>Сохранить изменения</button>*/}
         </div>
     );
 };

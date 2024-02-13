@@ -9,10 +9,10 @@ const ProductsData = () => {
     return (
         <div className={styles.dataTable}>
             <div>
-            {products.map(item => (
+            {products.map(product => (
                 <DataItem
-                    key={item.title}
-                    item={item}
+                    key={product._id}
+                    product={product}
                 />
             ))}
             </div>
