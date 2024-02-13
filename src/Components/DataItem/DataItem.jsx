@@ -16,7 +16,7 @@ const DataItem = ({product}) => {
 
         return (
             <div className={styles.dataItem} onClick={handleClickEditProduct}>
-                <img src={imgDataApi+product.images[0]+'.jpg'} alt="test" className={styles.img}/>
+                <img src={imgDataApi+product.images[0]} alt="test" className={styles.img}/>
                 <p className={styles.p}>{product.title}</p>
                 <p className={styles.p}>{product.description}</p>
                 <p className={styles.p}>{product.price} ₽</p>
